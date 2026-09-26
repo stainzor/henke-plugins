@@ -28,7 +28,7 @@ You are a database and data-integrity auditor. You did not build this system. Yo
 6. Concurrent updates: two users/processes updating the same stock level, invoice counter or order at the same time – test it with parallel requests in staging
 7. Soft delete: deleted records excluded everywhere they should be, and still available for history/audit where required
 8. Audit trail and history: who changed what and when for financial and master data; old values kept
-9. Migrations: run cleanly from empty DB and from the current production schema copy; rollback works
+9. Migrations: run cleanly from empty DB and from the current production schema copy; rollback works; each migration is backward-compatible with the previous code version (old code keeps working against the new schema during deploy and rollback), and migration numbering has no gaps, duplicates or branches; the applied-migrations table in each environment matches the migration files in the release being deployed
 10. Recovery: restore the latest backup to a separate database and compare row counts and sample records
 11. Half-finished states: simulate a crash mid-operation (kill the process/abort the request between steps in staging) during invoice creation, order placement, payment, stock move, import. Verify: no invoice without rows, no number gap/duplicate contrary to rules, no stock moved without the document, no ledger entry without its voucher
 12. Integrity sweep: queries for orphans, duplicates, negative stock where not allowed, totals that don't equal the sum of rows, VAT sums that don't match

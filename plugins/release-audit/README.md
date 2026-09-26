@@ -15,7 +15,7 @@ Den snabba löpande kontrollen (lint, tester, beroenden) kör Claude automatiskt
 
 ## Granskarna
 
-Tio oberoende agenter, var och en med egen kontext och utan kännedom om hur systemet byggdes:
+Tretton oberoende agenter, var och en med egen kontext och utan kännedom om hur systemet byggdes:
 
 - **Code Reviewer** – kod och arkitektur
 - **Security Auditor** – defensiv säkerhetsgranskning (OWASP Top 10)
@@ -24,7 +24,10 @@ Tio oberoende agenter, var och en med egen kontext och utan kännedom om hur sys
 - **QA Engineer** – provar varje funktion i webbläsaren, inte bara happy path
 - **UX Auditor** – gränssnitt, användbarhet, responsivitet, tillgänglighet
 - **Performance Auditor** – prestanda under realistisk datamängd
-- **Production Auditor** – backup (testar faktisk återställning), drift, deployment, övervakning
+- **Scenario Simulator** – tar först reda på hur just den här appen används (vem, var, enhet, uppkoppling) och simulerar sedan realistiska dagar/veckor, spolar fram tiden genom månads-/årsskiften och kör systemet i timmar
+- **Resilience Auditor** – vad händer när servern försvinner eller tappar internet, klienten tappar uppkopplingen, enheten dör eller appen stängs: får användaren besked, kommer man tillbaka dit man var, finns offlinelägen, försvinner eller dubbleras data?
+- **Docs Auditor** – finns handbok per roll, hjälp i appen och driftshandbok? Hittar användaren svaret på "hur gör jag…?" snabbt, och stämmer instruktionerna med appen som den ser ut i dag?
+- **Production Auditor** – backup (testar faktisk återställning), drift, deployment, övervakning, och att det som körs hänger ihop (rätt avbild mot rätt databasversion)
 - **Compliance Auditor** – bokföringslagen, GDPR, kassaregisterlagen, tillgänglighetslagen
 - **Release Judge** – ser bara fynd och bevis, sätter APPROVED/BLOCKED
 

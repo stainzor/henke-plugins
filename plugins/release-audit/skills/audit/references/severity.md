@@ -16,7 +16,7 @@ When in doubt between two levels, pick the higher and explain why. Anything touc
 
 ```
 ### <ID> [<SEVERITY>] <short title>
-- Område: <Function | Security | Red Team | Code quality | Database | UX | Performance | Backup/Restore | Deployment | Monitoring | Compliance | Regression>
+- Område: <Function | Security | Red Team | Code quality | Database | UX | Performance | Simulation | Resilience | Documentation | Backup/Restore | Deployment | Monitoring | Compliance | Regression>
 - Var: <file:line, URL, endpoint, table, screen>
 - Reproducera: <numbered steps or command – someone else must be able to repeat it>
 - Förväntat: <what should happen, reference to krav.md rule if any>
@@ -27,7 +27,7 @@ When in doubt between two levels, pick the higher and explain why. Anything touc
 - Status: OPEN
 ```
 
-ID prefixes: CODE, SEC, RED, DB, QA, UX, PERF, OPS, COMP, REG.
+ID prefixes: CODE, SEC, RED, DB, QA, UX, PERF, SIM, RES, DOC, OPS, COMP, REG.
 
 Write findings in Swedish. Every agent file ends with:
 

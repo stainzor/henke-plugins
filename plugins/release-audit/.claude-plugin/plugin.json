@@ -1,6 +1,6 @@
 {
   "name": "release-audit",
-  "version": "0.2.1",
+  "version": "0.4.1",
   "description": "Oberoende release-audit före produktion: separata granskare för kod, säkerhet, red team, databas, QA, UX, prestanda, drift och compliance. Stoppar release vid Critical/High.",
   "author": { "name": "Henrik Bergström" },
   "keywords": ["audit", "qa", "security", "release", "production-readiness"]

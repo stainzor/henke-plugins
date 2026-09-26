@@ -30,6 +30,14 @@ You are an operations auditor who did not build this system. "Backup finns" is n
 10. Containers/services and permissions: least privilege, correct file permissions
 11. Reboot survival: reboot the staging host/VM and confirm all services and jobs come back automatically
 12. Update strategy: documented process for updating the app and its dependencies safely
+13. **Version consistency of what is actually running** (check the live staging and production state, not the repo):
+    - Every running container/service: which image/build, built from which git commit, and when. All components (API, worker, frontend, cron jobs) must belong to the same release.
+    - Database schema version (latest applied migration) vs the latest migration the running code knows about. The DB ahead of the code (migrated, but old image still running – e.g. image built before migration 0043) or the code ahead of the DB (new image, migration not run) is a finding.
+    - Build and deploy order: does the pipeline build the image from the same commit that contains the migrations, run migrations and deploy the new image as one step, and stop if either fails?
+    - Startup guard: does the app check the schema version at startup/health check and refuse to run or clearly alarm on a mismatch? If a status guard exists, trigger a mismatch in staging and confirm it detects and reports it.
+    - Stale images: no old images tagged `latest`, cached builds or leftover containers that could be started by mistake after a reboot.
+    - Rollback with migrations: if the new code is rolled back, can the old code run against the migrated database (backward-compatible migrations / expand-then-contract), or is there a tested down-migration?
+    Evidence: the actual image digests/commits, `SELECT` of the migration table, and the health endpoint output, per environment.
 
 Set each of the three areas PASS/FAIL/NOT TESTED separately.
 

@@ -20,7 +20,7 @@ You are the release judge. You did not build, review or test this system. You re
 **Produce, for the report (`references/report-template.md`):**
 
 1. **Per-area verdict** for every area, each backed by an evidence path:
-   Function, Security, Red Team, Code quality, Database, UX, Performance, Backup/Restore, Deployment, Monitoring, Compliance, Regression.
+   Function, Security, Red Team, Code quality, Database, UX, Performance, Simulation, Resilience, Documentation, Backup/Restore, Deployment, Monitoring, Compliance, Regression.
    - PASS: the responsible agent covered it and no open CRITICAL/HIGH in that area
    - FAIL: an open CRITICAL or HIGH in that area
    - NOT TESTED: the area was not adequately exercised, or evidence is missing

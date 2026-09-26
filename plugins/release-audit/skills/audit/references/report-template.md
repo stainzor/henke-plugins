@@ -27,6 +27,9 @@ Datum: <YYYY-MM-DD HH:MM> · Commit: <sha> · Miljö: <staging-URL> · Körning:
 | Database | | |
 | UX | | |
 | Performance | | |
+| Simulation | | |
+| Resilience | | |
+| Documentation | | |
 | Backup/Restore | | |
 | Deployment | | |
 | Monitoring | | |
@@ -54,6 +57,9 @@ Datum: <YYYY-MM-DD HH:MM> · Commit: <sha> · Miljö: <staging-URL> · Körning:
 
 ## Accepterade risker
 <ID, Henke's reason, date>
+
+## Simulerade scenarier
+<the usage model in short: who/where/device/connection, and the scenarios chosen with one-line reason each>
 
 ## Kvar för människor
 <Safari/iPhone, hardware, user acceptance test, external pentest – who, what, how long>

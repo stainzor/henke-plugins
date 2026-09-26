@@ -18,7 +18,7 @@ Communicate with Henke in Swedish, short and direct. Never give him terminal ste
 
 ## Ground rules
 
-1. **Independence.** Every review phase runs in a separate subagent with fresh context. Give each agent only: project path, `.audit/config.md`, `.audit/krav.md`, its checklist, the run folder and target URLs. Never pass the build conversation, the builder's explanations or "how it's meant to work". Use the plugin agent of the same name when it is available as a subagent type; otherwise spawn a general-purpose agent whose prompt is the full content of `${CLAUDE_PLUGIN_ROOT}/agents/<name>.md` plus the inputs above.
+1. **Independence.** Every review phase runs in a separate subagent with fresh context. Give each agent only: project path, `.audit/config.md`, `.audit/krav.md`, its checklist, the run folder and target URLs. Never pass the build conversation, the builder's explanations or "how it's meant to work". Use the plugin agent of the same name when it is available as a subagent type; otherwise spawn a general-purpose agent whose prompt is the full content of the agent file `<name>.md` (in the plugin's `agents/` folder, or `~/.claude/agents/` when installed without the plugin system) plus the inputs above.
 2. **Auditors never modify application code.** They may create test data, test scripts and evidence files inside `.audit/`.
 3. **Evidence or it didn't happen.** Every PASS needs evidence: command output, test report, screenshot, log excerpt, query result. "Looks fine" is not evidence. No evidence → NOT TESTED.
 4. **Test environment.** Destructive, attack and load tests run only against staging/test. Against production only read-only checks (SSL, headers, DNS, backup status, uptime). If no staging exists: stop and propose running `/audit-setup` to create one, or run the non-destructive parts and mark the rest NOT TESTED.
@@ -67,9 +67,12 @@ Then, since they share the browser and test data, run sequentially:
 |---|---|
 | `qa-engineer` | Function |
 | `ux-auditor` | UX |
+| `scenario-simulator` | Simulation |
+| `resilience-auditor` | Resilience |
+| `docs-auditor` | Documentation |
 | `red-team` | Red Team |
 
-Red Team runs last and gets nothing from the security auditor – different results are the point.
+`scenario-simulator` first builds a usage model of how THIS app is really used (who, where, device, connection, rhythm) and only simulates scenarios relevant to it; `resilience-auditor` reuses that model for outage and offline scenarios. Red Team runs last and gets nothing from the security auditor – different results are the point.
 
 Each agent writes `findings/<agent>.md` using the format in `references/severity.md`, with evidence files in `evidence/`, and a coverage section (what was tested, what was not and why).
 
@@ -85,7 +88,7 @@ If this run follows fixes from an earlier run, or code changed during the audit:
 4. Tell Henke in 3–6 lines: decision, area table result, number of findings per severity, and a numbered list of only the decisions that need him (each as a question with a recommended answer).
 
 ### Phase 5 – Fix and verify
-1. Fix in the main session, without asking: all clear bugs and security holes. Ask Henke only about things that change behaviour, business rules, design or cost money.
+1. Fix in the main session, without asking: all clear bugs and security holes. If user manuals, in-app help or the operations handbook are missing or outdated, write/update them (in `docs/` in the project, task-based, per role, in Swedish) as part of the fix, and link them from inside the app. Ask Henke only about things that change behaviour, business rules, design or cost money.
 2. Add or update an automated test for every fixed CRITICAL/HIGH so it cannot come back.
 3. Run `/audit-verify` (fresh agents). Repeat fix → verify until the Release Judge sets APPROVED or Henke explicitly accepts a remaining risk (recorded as ACCEPTED RISK with his reason and date).
 
