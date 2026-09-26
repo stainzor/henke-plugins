@@ -1,0 +1,22 @@
+# Release-spärr – lägg i .github/workflows/release-gate.yml
+# Stoppar release/tagg om AUDIT.md inte börjar med "RELEASE STATUS: APPROVED".
+name: release-gate
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kontrollera audit-status
+        run: |
+          if [ ! -f AUDIT.md ]; then
+            echo "AUDIT.md saknas – ingen release utan godkänd audit."
+            exit 1
+          fi
+          head -n 1 AUDIT.md | grep -q "^RELEASE STATUS: APPROVED$" \
+            || (echo "Audit ej godkänd (RELEASE STATUS är inte APPROVED). Release stoppad." && head -n1 AUDIT.md && exit 1)
+          echo "Audit godkänd – release tillåten."

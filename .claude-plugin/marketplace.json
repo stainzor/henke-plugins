@@ -1,0 +1,14 @@
+{
+  "name": "henke-plugins",
+  "owner": {
+    "name": "Henrik Bergström"
+  },
+  "plugins": [
+    {
+      "name": "release-audit",
+      "source": "./plugins/release-audit",
+      "description": "Oberoende release-audit före produktion. Skriv /audit eller 'granska appen'."
+    }
+  ],
+  "description": "Henkes egna Claude-plugins"
+}
